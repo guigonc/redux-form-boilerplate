@@ -1,0 +1,34 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "mocha": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": [
+    "mocha",
+    "react"
+  ],
+  "globals": {
+    "process": true
+  },
+  "rules": {
+      "indent": ["error", 2],
+      "linebreak-style": ["error", "unix"],
+      "quotes": ["error", "single"],
+      "semi": ["error", "never"],
+      "keyword-spacing": ["error", { "before": true }],
+      "comma-dangle": ["error", "never"],
+      "react/jsx-uses-react": "error",
+      "react/jsx-uses-vars": "error"
+  }
+}
