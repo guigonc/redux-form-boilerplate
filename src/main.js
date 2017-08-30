@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import App from 'app/components/app'
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux'
 import { createLogger } from 'redux-logger'
+import { reducer as formReducer } from 'redux-form'
 
 /* eslint-disable */
 const composeEnhancers = typeof __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function' && __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -12,7 +13,9 @@ const composeEnhancers = typeof __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'functi
 const middlewares = []
 if (process.env.NODE_ENV !== 'production') middlewares.push(createLogger({ level: 'info' }))
 
-const reducers = combineReducers({})
+const reducers = combineReducers({
+  form: formReducer
+})
 
 const store = createStore(
   reducers,
