@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0",
+    "build": "NODE_ENV=production webpack -p --config webpack.dist.config.js",
     "test": "NODE_PATH=./src:./test  mocha test/unit --recursive --compilers js:babel-register",
     "lint": "eslint src test --ignore-path .gitignore"
   },

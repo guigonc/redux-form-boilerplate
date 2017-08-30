@@ -1,5 +1,9 @@
 # Redux Form Boilerplate
 
+## Demo
+
+You can access the running code [here](https://guigonc.github.io/redux-form-boilerplate/) 
+
 ## Requirements
 
 For development, you will only need Node.js installed on your environement.
