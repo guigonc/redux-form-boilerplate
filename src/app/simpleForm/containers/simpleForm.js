@@ -3,7 +3,4 @@ import { reduxForm } from 'redux-form'
 
 export default reduxForm({
   form: 'simpleForm',
-  initialValues: {
-    country: 'Brazil'
-  }
 })(SimpleForm)

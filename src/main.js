@@ -11,7 +11,6 @@ const composeEnhancers = typeof __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'functi
 /* eslint-enable */
 
 const middlewares = []
-if (process.env.NODE_ENV !== 'production') middlewares.push(createLogger({ level: 'info' }))
 
 const reducers = combineReducers({
   form: formReducer
