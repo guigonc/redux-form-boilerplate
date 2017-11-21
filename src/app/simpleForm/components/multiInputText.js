@@ -1,25 +1,59 @@
 import React from 'react'
-import { Fields, FormSection } from 'redux-form'
+import { touch } from 'redux-form'
 
-const renderAddreessInputs = ({ street, number, error }) => (<div>
-  <input {...street.input} type="text" />
-  <input {...number.input} type="text" />
-  { street.meta.touched && number.meta.touched && error && <span className="error">{error}</span> }
-</div>)
+class MultiInputText extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      street: { touched: false },
+      number: { touched: false }
+    }
+  }
 
-const MultiInputText = (props) => {
-  const { input: { name }, label, meta: { error }} = props
-  const names = [
-    'street',
-    'number'
-  ]
+  isEveryInputTouched() {
+    return Object.values(this.state).every(f => f.touched)
+  }
 
-  return (<div>
-    <label htmlFor={name}>{label}</label>
-    <FormSection name={name}>
-      <Fields names={names} component={renderAddreessInputs} error={error}/>
-    </FormSection>
-  </div>)
+  shouldTouch() {
+    return !this.props.meta.touched && this.isEveryInputTouched()
+  }
+
+  renderField(fieldName) {
+    const { input: { name, value } } = this.props
+    
+    return <input 
+      name={`${name}.${fieldName}`}  
+      value={(value && value[fieldName]) || ''}  
+      onChange={this.onChange(fieldName, value)} 
+      onBlur={this.onBlur(fieldName)} 
+      type="text" 
+    />
+  }
+
+  onBlur = fieldName => event => {
+    const { input: { name }, meta: { form, dispatch }} = this.props
+    
+    this.setState({ [fieldName]: { touched: true } }, () => {
+      if (this.shouldTouch()) {
+        dispatch(touch(form, name))
+      }
+    })
+  }
+
+  onChange = (field, value) => event => {
+    this.props.input.onChange({ ...value, [field]: event.target.value })
+  }
+
+  render() {
+    const { input, label, meta: { error, touched }} = this.props
+    
+    return (<div>
+      <label htmlFor={input.name}>{label}</label>
+      { this.renderField('street') }
+      { this.renderField('number') }
+      { touched && error && <span className="error">{error}</span> }
+    </div>)
+  }
 }
 
 export default MultiInputText
